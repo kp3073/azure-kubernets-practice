@@ -60,7 +60,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: httpd.cloudaws.shop
+  - host: httpd-base.cloudaws.shop
     http:
       paths:
       - path: /
@@ -78,7 +78,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: nginx.cloudaws.shop
+  - host: nginx-base.cloudaws.shop
     http:
       paths:
       - path: /
