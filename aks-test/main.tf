@@ -1,3 +1,6 @@
+output "resource_group_id" {
+  value = data.azurerm_resource_group.rg.id
+}
 # resource "azurerm_kubernetes_cluster" "example" {
 #   name                = "example-aks1"
 #   location            = azurerm_resource_group.example.location
