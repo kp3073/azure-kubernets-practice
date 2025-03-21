@@ -1,34 +1,24 @@
-output "resource_group_id" {
-  value = [data.azurerm_resource_group.rg.id, data.azurerm_resource_group.rg.name]
+
+resource "azurerm_kubernetes_cluster" "example" {
+  name                = "${var.env}-aks"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  dns_prefix          = "cloudaws"
+  vnet_subnet_id      = azurerm_subnet.subnet.id
+
+  default_node_pool {
+	name       = "test-np"
+	node_count = 2
+	vm_size    = "Standard_D2_v2"
+  }
+
+  tags = {
+	Environment = "Production"
+  }
 }
-# resource "azurerm_kubernetes_cluster" "example" {
-#   name                = "example-aks1"
-#   location            = azurerm_resource_group.example.location
-#   resource_group_name = azurerm_resource_group.example.name
-#   dns_prefix          = "exampleaks1"
-# 
-#   default_node_pool {
-# 	name       = "default"
-# 	node_count = 1
-# 	vm_size    = "Standard_D2_v2"
-#   }
-# 
-#   identity {
-# 	type = "SystemAssigned"
-#   }
-# 
-#   tags = {
-# 	Environment = "Production"
-#   }
-# }
-# 
-# output "client_certificate" {
-#   value     = azurerm_kubernetes_cluster.example.kube_config[0].client_certificate
-#   sensitive = true
-# }
-# 
-# output "kube_config" {
-#   value = azurerm_kubernetes_cluster.example.kube_config_raw
-# 
-#   sensitive = true
-# }
+
+
+output "kube_config" {
+  value = azurerm_kubernetes_cluster.example.kube_config_raw
+
+}
