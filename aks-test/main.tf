@@ -1,5 +1,5 @@
 output "resource_group_id" {
-  value = data.azurerm_resource_group.rg.id
+  value = [data.azurerm_resource_group.rg.id, data.azurerm_resource_group.rg.name]
 }
 # resource "azurerm_kubernetes_cluster" "example" {
 #   name                = "example-aks1"
