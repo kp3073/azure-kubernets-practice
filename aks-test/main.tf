@@ -1,25 +1,21 @@
-
 resource "azurerm_kubernetes_cluster" "example" {
-  name                = "${var.env}-aks"
+  name                = "example-aks1"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
-  dns_prefix          = "cloudaws"
-  
+  dns_prefix          = "exampleaks1"
 
   default_node_pool {
-	name       = "test-np"
-	node_count = 2
-	vm_size    = "Standard_D2_v2"
+	name           = "default"
+	node_count     = 1
+	vm_size        = "Standard_D2_v2"
 	vnet_subnet_id = data.azurerm_subnet.subnet.id
+  }
+
+  identity {
+	type = "SystemAssigned"
   }
 
   tags = {
 	Environment = "Production"
   }
-}
-
-
-output "kube_config" {
-  value = azurerm_kubernetes_cluster.example.kube_config_raw
-
 }
