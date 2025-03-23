@@ -16,7 +16,8 @@ resource "azurerm_kubernetes_cluster" "example" {
   }
   network_profile {
 	network_plugin     = "azure"
-	service_cidr = "10.3.0.0/16"  # Updated service CIDR to avoid conflict
+	service_cidr = "10.3.0.0/16"
+	dns_service_ip = "10.3.0.10"
   }
 
   tags = {
