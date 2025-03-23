@@ -14,6 +14,10 @@ resource "azurerm_kubernetes_cluster" "example" {
   identity {
 	type = "SystemAssigned"
   }
+  network_profile {
+	network_plugin     = "azure"
+	service_cidr = "10.3.0.0/16"  # Updated service CIDR to avoid conflict
+  }
 
   tags = {
 	Environment = "Production"
