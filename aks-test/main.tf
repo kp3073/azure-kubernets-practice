@@ -5,6 +5,8 @@ module "aks" {
 
 module "vms" {
   source = "./modules/vm"
-  vms = var.vms
-  env = dev
+  for_each = var.vms
+  env = var.env
+  vm_size = each.value["vm_size"]
+  vms = each.value["name"]
 }
