@@ -1,2 +1,3 @@
+variable "database" {}
 variable "env" {}
-variable "vms" {}
+variable "vm_size" {}
