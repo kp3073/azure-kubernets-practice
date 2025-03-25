@@ -1,6 +1,6 @@
 resource "azurerm_network_interface" "main" {
   for_each 			  = var.vms 
-  name                = "${var.env}-${var.vms[each.key].name}-nic"
+  name                = "${var.env}-${var.vms}-nic"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
@@ -13,7 +13,7 @@ resource "azurerm_network_interface" "main" {
 
 resource "azurerm_virtual_machine" "main" {
   for_each = var.vms
-  name                = "${var.env}-each.value"
+  name                = "${var.env}-${var.vms}-test"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.main.id]
