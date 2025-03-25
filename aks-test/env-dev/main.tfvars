@@ -1,13 +1,13 @@
+env     = "dev"
+# vm_size = "Standard_B2s"
 
-env = "dev"
-
-vms={
-  vm1={
-	name = "vm1"
+vms = {
+  vm-test1 = {
+	name    = "mysql"
 	vm_size = "Standard_DS1_v2"
   }
-  vm2={
-	name = "vm2"
+  vm-test2 = {
+	name    = "mongodb"
 	vm_size = "Standard_DS1_v2"
   }
 }

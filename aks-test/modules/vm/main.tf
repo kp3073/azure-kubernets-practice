@@ -12,41 +12,35 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_virtual_machine" "main" {
-  for_each = var.vms
-  name                = "${var.env}-test"
+  name                = "${var.vms}-${var.env}"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.main.id]
-  vm_size             = each.value["vm_size"]
-  
+  vm_size = var.vm_size
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   delete_os_disk_on_termination = true
 
-  # Uncomment this line to delete the data disks automatically when deleting the VM
-  delete_data_disks_on_termination = true
 
   storage_image_reference {
-	publisher = "Canonical"
-	offer     = "0001-com-ubuntu-server-jammy"
-	sku       = "22_04-lts"
-	version   = "latest"
+	id = "/subscriptions/4b236e6d-2c9a-4cb2-90a2-30a5377d8eb2/resourceGroups/azuredevops/providers/Microsoft.Compute/galleries/azawsdevops/images/azawsdevops/versions/1.0.0"
   }
+
   storage_os_disk {
-	name              = "myosdisk1"
+	name              = "${var.vms}-${var.env}"
 	caching           = "ReadWrite"
 	create_option     = "FromImage"
 	managed_disk_type = "Standard_LRS"
   }
   os_profile {
-	computer_name  = "hostname"
-	admin_username = "testadmin"
-	admin_password = "Password1234!"
+	computer_name  = var.vms
+	admin_username = "cenetos"
+	admin_password = "Password1234$$$$"
   }
   os_profile_linux_config {
 	disable_password_authentication = false
   }
   tags = {
-	environment = "staging"
+	database = "${var.vms}-${var.env}"
   }
 }
