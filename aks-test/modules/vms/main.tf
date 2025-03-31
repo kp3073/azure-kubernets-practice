@@ -3,9 +3,10 @@ resource "azurerm_resource_group" "example" {
   location = "West Europe"
 }
 resource "azurerm_public_ip" "publicip" {
+  for_each = var.vms
   allocation_method   = "Dynamic"
   location            = data.azurerm_resource_group.rg.location
-  name                = "${var.env}-publicip"
+  name                = "${var.env}-${each.key}publicip"
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 resource "azurerm_subnet" "internal" {
@@ -16,7 +17,8 @@ resource "azurerm_subnet" "internal" {
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.env}-nic"
+  for_each = var.vms
+  name                = "${var.env}-${each.key}-nic"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
@@ -28,11 +30,12 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_virtual_machine" "main" {
-  name                = "${var.env}-vm"
+  for_each = var.vms
+  name                = "${var.env}-${each.value["name"]}"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   network_interface_ids = [azurerm_network_interface.main.id]
-  vm_size             = "Standard_DS1_v2"
+  vm_size             = each.value["size"]
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   delete_os_disk_on_termination = true
