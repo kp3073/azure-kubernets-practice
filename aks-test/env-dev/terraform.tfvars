@@ -1,5 +1,5 @@
 env     = "dev"
-# vm_size = "Standard_B2s"
+vm_size = "Standard_B2s"
 
 vms = {
   vm-test1 = {
