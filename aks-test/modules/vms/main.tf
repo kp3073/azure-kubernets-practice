@@ -1,6 +1,5 @@
 
 resource "azurerm_public_ip" "publicip" {
-  for_each = var.vms
   allocation_method   = "Dynamic"
   sku = "Basic"
   location            = data.azurerm_resource_group.rg.location
