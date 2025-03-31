@@ -11,7 +11,7 @@ resource "azurerm_public_ip" "publicip" {
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 resource "azurerm_subnet" "internal" {
-  name                 = "internal"
+  name                 = "default"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = data.azurerm_virtual_network.vnet.name
   address_prefixes = ["10.0.2.0/24"]
