@@ -10,12 +10,6 @@ resource "azurerm_public_ip" "publicip" {
   name                = "${var.env}-${each.key}publicip"
   resource_group_name = data.azurerm_resource_group.rg.name
 }
-resource "azurerm_subnet" "internal" {
-  name                 = "default"
-  resource_group_name  = data.azurerm_resource_group.rg.name
-  virtual_network_name = data.azurerm_virtual_network.vnet.name
-  address_prefixes = ["10.0.2.0/24"]
-}
 
 resource "azurerm_network_interface" "main" {
   for_each = var.vms
@@ -25,7 +19,7 @@ resource "azurerm_network_interface" "main" {
 
   ip_configuration {
 	name                          = "testconfiguration1"
-	subnet_id                     = azurerm_subnet.internal.id
+	subnet_id                     = "/subscriptions/4b236e6d-2c9a-4cb2-90a2-30a5377d8eb2/resourceGroups/azuredevops/providers/Microsoft.Network/virtualNetworks/azure-network/subnets/default"
 	private_ip_address_allocation = "Dynamic"
   }
 }
