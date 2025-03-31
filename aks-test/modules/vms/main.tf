@@ -3,12 +3,12 @@ resource "azurerm_public_ip" "publicip" {
   allocation_method   = "Dynamic"
   sku = "Basic"
   location            = data.azurerm_resource_group.rg.location
-  name                = "${var.env}-${var.vms}publicip"
+  name                = "${var.vms}-${var.env}-publicip"
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.env}-${var.vms}-nic"
+  name                = "${var.vms}-${var.env}}-nic"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
