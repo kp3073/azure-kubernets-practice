@@ -19,7 +19,7 @@ resource "azurerm_network_interface" "main" {
 
   ip_configuration {
 	name                          = "testconfiguration1"
-	subnet_id                     = "/subscriptions/4b236e6d-2c9a-4cb2-90a2-30a5377d8eb2/resourceGroups/azuredevops/providers/Microsoft.Network/virtualNetworks/azure-network/subnets/default"
+	subnet_id                     = data.azurerm_subnet.subnet.id
 	private_ip_address_allocation = "Dynamic"
   }
 }
