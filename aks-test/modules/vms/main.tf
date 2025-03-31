@@ -1,8 +1,6 @@
-resource "azurerm_resource_group" "example" {
-  name     = "${var.env}-resources"
-  location = "West Europe"
-}
+
 resource "azurerm_public_ip" "publicip" {
+  for_each = var.vms
   allocation_method   = "Dynamic"
   sku = "Basic"
   location            = data.azurerm_resource_group.rg.location
@@ -12,8 +10,8 @@ resource "azurerm_public_ip" "publicip" {
 
 resource "azurerm_network_interface" "main" {
   name                = "${var.env}-${var.vms}-nic"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
 
   ip_configuration {
 	name                          = "internal"
@@ -26,8 +24,8 @@ resource "azurerm_network_interface" "main" {
 resource "azurerm_virtual_machine" "main" {
   for_each = var.vms
   name                = "${var.env}-${each.value["name"]}"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.main[each.key].id]
   vm_size             = each.value["size"]
 
