@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "example" {
 resource "azurerm_public_ip" "publicip" {
   for_each = var.vms
   allocation_method   = "Dynamic"
-  sku = "Basics"
+  sku = "Basic"
   location            = data.azurerm_resource_group.rg.location
   name                = "${var.env}-${each.key}publicip"
   resource_group_name = data.azurerm_resource_group.rg.name
