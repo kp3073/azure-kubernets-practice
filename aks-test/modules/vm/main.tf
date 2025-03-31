@@ -1,6 +1,6 @@
 resource "azurerm_network_interface" "main" {
   for_each 			  = var.vms
-  name                = "${var.env}-nic"
+  name                = "${var.env}-${each.value[name]}-nic"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
@@ -12,11 +12,12 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_virtual_machine" "main" {
+  for_each            = var.vms
   name                = "${var.vms}-${var.env}"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.main.id]
-  vm_size = "sta"
+  vm_size = each.value["vm_size"]
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   delete_os_disk_on_termination = true
