@@ -41,7 +41,7 @@ resource "azurerm_virtual_machine" "main" {
   }
   
   storage_os_disk {
-	name              = each.key
+	name              = "${each.key}-osdisk"
 	caching           = "ReadWrite"
 	create_option     = "FromImage"
 	managed_disk_type = "Standard_LRS"
