@@ -10,7 +10,7 @@ resource "azurerm_public_ip" "publicip" {
 
 resource "azurerm_network_interface" "main" {
   for_each = var.vms
-  name                = "${each.key}-${var.env}}-nic"
+  name                = "${each.key}-${var.env}-nic"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
