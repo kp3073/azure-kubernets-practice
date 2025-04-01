@@ -1,7 +1,7 @@
-module "aks" {
-  source = "./modules/aks"
-  env = var.env
-}
+# module "aks" {
+#   source = "./modules/aks"
+#   env = var.env
+# }
 
 
 module "vms" {
