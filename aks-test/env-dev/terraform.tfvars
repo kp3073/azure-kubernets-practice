@@ -3,10 +3,10 @@ env = "dev"
 vms={
   centos = {
 	name = "centos"
-	size = "Standard_B1s"
+	size = "Standard_DS1_v2"
   }
   ubuntu = {
 	name = "ubuntu"
-	size = "Standard_B1s_v2"
+	size = "Standard_D2d_v4"
   }
 }
