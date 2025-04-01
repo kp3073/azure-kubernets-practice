@@ -1,14 +1,16 @@
 
 resource "azurerm_public_ip" "publicip" {
+  for_each = var.vms
   allocation_method   = "Dynamic"
   sku = "Basic"
   location            = data.azurerm_resource_group.rg.location
-  name                = "${var.vms}-${var.env}-publicip"
+  name                = "${each.key}-${var.env}-publicip"
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.vms}-${var.env}}-nic"
+  for_each = var.vms
+  name                = "${each.key}-${var.env}}-nic"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
