@@ -6,7 +6,7 @@ data:
   token: aHZzLkJGT3dvUHppYnVURmFWcWRnRmdWUkx1RA==
 ---
 apiVersion: external-secrets.io/v1beta1
-kind: SecretStore
+kind: SecretStore.yaml
 metadata:
   name: vault-aks
 spec:
@@ -33,7 +33,7 @@ spec:
   refreshInterval: "15s"
   secretStoreRef:
     name: vault-aks
-    kind: SecretStore
+    kind: SecretStore.yaml
   target:
     name: example-sync
   data:
